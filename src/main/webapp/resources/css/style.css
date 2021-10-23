@@ -1,3 +1,20 @@
 .colorText{
 	color : green;
 }
+.tableHeader{
+	text-align: center;
+	background: none repeat scroll 0 0 #a3baf1;
+	border-bottom: 1px solid #8aa7db;
+	padding: 16px;
+	
+}
+.tableRow{
+	text-align: center;
+	background: none repeat scroll 0 0 #FFFFFF;
+	border-top: 1px solid #8aa7db;
+}
+.tableRowLine{
+	text-align: center;
+	background: none repeat scroll 0 0 #F9F9F9;
+	border-top: 1px solid #8aa7db;
+}

@@ -7,10 +7,34 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
-	<meta charset="ISO-8859-1" />
 	<title>Pantalla principal</title>
+	<h:outputStylesheet library="css" name="style.css"/>
 </h:head>
 <h:body>
 	Bienvenido a la pantalla principal
+	<h:dataTable id="tblEmpleados" var="empleado" value="#{mainController.empleados}" headerClass="tableHeader"
+	rowClasses="tableRow tableRowLine">
+		<h:column>
+			<f:facet name="header">Nombre</f:facet>
+			<h:outputText value="#{empleado.nombre}"/>
+		</h:column>
+		<h:column>
+			<f:facet name="header"> Primer Apellido</f:facet>
+			<h:outputText value="#{empleado.primerApellido}"/>
+		</h:column>
+		<h:column>
+			<f:facet name="header">Segundo Apellido</f:facet>
+			<h:outputText value="#{empleado.segundoApellido}"/>
+		</h:column>
+		<h:column>
+			<f:facet name="header">Puesto</f:facet>
+			<h:outputText value="#{empleado.puesto}"/>
+		</h:column>
+		<h:column>
+			<f:facet name="header">Estado</f:facet>
+			<h:outputText value="activo" rendered="#{empleado.estado}"/>
+			<h:outputText value="inhabilitado" rendered="#{!empleado.estado}"/>
+		</h:column>										
+	</h:dataTable>
 </h:body>
 </html>
