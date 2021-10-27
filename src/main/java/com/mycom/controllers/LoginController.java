@@ -4,19 +4,26 @@
 package com.mycom.controllers;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 /**
- * @author Tom
+ * @author VintageStep
  * Clase que permite controlar el funcionamiento de la pantqalla de login.xhtml
  */
 @ManagedBean
-public class LoginController {
+@RequestScoped
+public class LoginController implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7786803894006328675L;
 	// Atributos
 	
 	private String usuario;

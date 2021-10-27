@@ -1,5 +1,6 @@
 package com.mycom.controllers;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -11,14 +12,16 @@ import com.mycom.services.EmpleadoService;
 
 /**
  * 
- * @author Tom
+ * @author Vintagestep
  * Clase controller que se encarga de procesar la información
  * de la pantalla principal.xhtml
  */
 
 @ManagedBean
 @ViewScoped
-public class MainController {
+public class MainController implements Serializable {
+
+	private static final long serialVersionUID = 668608648621500003L;
 	/**
 	 * Lista de empleados para la tabla
 	 */
