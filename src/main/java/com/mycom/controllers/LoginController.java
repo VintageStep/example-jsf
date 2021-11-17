@@ -4,30 +4,31 @@
 package com.mycom.controllers;
 
 import java.io.IOException;
-import java.io.Serializable;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import com.mycom.dto.UsuarioDTO;
+
 /**
- * @author VintageStep
+ * @author Tom
  * Clase que permite controlar el funcionamiento de la pantqalla de login.xhtml
  */
 @ManagedBean
-@RequestScoped
-public class LoginController implements Serializable{
+public class LoginController {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7786803894006328675L;
 	// Atributos
 	
 	private String usuario;
 	private String password;
+	
+	// Bean que mantiene la informacion en sesion
+	
+	@ManagedProperty("#{sessionController}")
+	private SessionController sessionController;
 	
 	// Constructores
 	
@@ -40,6 +41,10 @@ public class LoginController implements Serializable{
 	public void ingresar() {
 		if (usuario.equals("tom")&& password.equals("12345")) {
 			try {
+				UsuarioDTO usuarioDTO = new UsuarioDTO();
+				usuarioDTO.setUsuario(this.usuario);
+				usuarioDTO.setPassword(this.password);
+				this.sessionController.setUsuarioDTO(usuarioDTO);
 				this.redireccionar("principal.xhtml");
 			} catch (IOException e) {
 				FacesContext.getCurrentInstance().addMessage("formLogin:txtUsuario", new FacesMessage(FacesMessage.SEVERITY_FATAL, "La página no existe", ""));
@@ -68,6 +73,14 @@ public class LoginController implements Serializable{
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public SessionController getSessionController() {
+		return sessionController;
+	}
+
+	public void setSessionController(SessionController sessionController) {
+		this.sessionController = sessionController;
 	}
 	
 	

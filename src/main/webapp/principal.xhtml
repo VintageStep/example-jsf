@@ -10,32 +10,53 @@
 <h:head>
 	<title>Pantalla principal</title>
 	<h:outputStylesheet library="css" name="style.css"/>
+	<meta name="viewport" content="width=device-width, user-scalable=no" />
 </h:head>
 <h:body>
-	Bienvenido a la pantalla principal
-	<h:dataTable id="tblEmpleados" var="empleado" value="#{mainController.empleados}" headerClass="tableHeader"
-	rowClasses="tableRow tableRowLine">
-		<h:column>
-			<f:facet name="header">Nombre</f:facet>
-			<h:outputText value="#{empleado.nombre}"/>
-		</h:column>
-		<h:column>
-			<f:facet name="header"> Primer Apellido</f:facet>
-			<h:outputText value="#{empleado.primerApellido}"/>
-		</h:column>
-		<h:column>
-			<f:facet name="header">Segundo Apellido</f:facet>
-			<h:outputText value="#{empleado.segundoApellido}"/>
-		</h:column>
-		<h:column>
-			<f:facet name="header">Puesto</f:facet>
-			<h:outputText value="#{empleado.puesto}"/>
-		</h:column>
-		<h:column>
-			<f:facet name="header">Estado</f:facet>
-			<h:outputText value="activo" rendered="#{empleado.estado}"/>
-			<h:outputText value="inhabilitado" rendered="#{!empleado.estado}"/>
-		</h:column>										
-	</h:dataTable>
-</h:body>
+	<p:outputLabel value="Bienvenido #{sessionController.usuarioDTO.usuario} a la pantalla principal"/>
+	
+	<h:form>
+		<p:commandButton value="Cerrar Sesión" action="#{sessionClosedController.cerrarSession}"></p:commandButton>
+		<p:dataTable id="tblEmpleados" var="empleado" value="#{mainController.empleados}"
+			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			paginator="true" rows="10" currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} reegistros"
+			emptyMessage="No se han encontrado registros." paginatorPosition="bottom" rowsPerPageTemplate="5,10,15,{ShowAll|'All'}"
+			filteredValue="#{mainController.empleadosFiltadros}" filteredBy="#{mainController.filterBy}" widgetVar="tblEmpledos"
+			reflow="true">
+			<f:facet name="header">
+                <span>Lista de Empleados</span>
+            </f:facet>
+			<p:column field="nombre" headerText="Nombre" filterBy="#{empleado.nombre}" sortBy="#{empleado.nombre}" filterMatchMode="contains">
+				<p:outputLabel value="#{empleado.nombre}"/>
+			</p:column>
+			<p:column field="primerApellido" headerText="Primer apellido" filterBy="#{empleado.primerApellido}" sortBy="#{empleado.primerApellido}" filterMatchMode="contains">
+				<p:outputLabel value="#{empleado.primerApellido}"/>
+			</p:column>
+			<p:column field="segundoApellido" headerText="Segundo apellido" filterBy="#{empleado.segundoApellido}" sortBy="#{empleado.segundoApellido}" filterMatchMode="contains">
+				<p:outputLabel value="#{empleado.segundoApellido}"/>
+			</p:column>
+			<p:column field="puesto" headerText="Puesto" filterBy="#{empleado.puesto}" sortBy="#{empleado.puesto}" filterMatchMode="contains">
+				<p:outputLabel value="#{empleado.puesto}"/>
+			</p:column>
+			<p:column field="estado" headerText="Estado" filterMatchMode="exact">
+                <f:facet name="filter">
+                    <p:selectOneMenu onchange="PF('tblEmpleados').filter()" styleClass="custom-filter">
+                        <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true" />
+                        <f:selectItems value="#{mainController.estado}" />
+                    </p:selectOneMenu>
+                </f:facet>
+
+                <span class="employee-badge estado-#{empleado.estado.lowerCase()}">#{empleado.estado}</span>
+			</p:column>										
+		</p:dataTable>
+		    <div class="p-d-flex p-jc-between">
+            <div>
+                <h5>Exportar</h5>
+                <p:commandButton value="PDF" styleClass="p-mr-2 p-mb-2">
+                    <p:dataExporter type="pdf" target="tblEmpleados" fileName="Lista_Empleados"/>
+                </p:commandButton>
+            </div>
+            </div>
+	</h:form>	
+    </h:body>
 </html>

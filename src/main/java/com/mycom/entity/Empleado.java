@@ -12,10 +12,10 @@ public class Empleado {
 	private String primerApellido;
 	private String segundoApellido;
 	private String puesto;
-	private boolean estado;
+	private Estado estado;
 	
 	
-	public Empleado(String nombre, String primerApellido, String segundoApellido, String puesto, boolean estado) {
+	public Empleado(String nombre, String primerApellido, String segundoApellido, String puesto, Estado estado) {
 		super();
 		this.nombre = nombre;
 		this.primerApellido = primerApellido;
@@ -48,10 +48,10 @@ public class Empleado {
 	public void setPuesto(String puesto) {
 		this.puesto = puesto;
 	}
-	public boolean getEstado() {
+	public Estado getEstado() {
 		return estado;
 	}
-	public void setEstado(boolean estado) {
+	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
 	
